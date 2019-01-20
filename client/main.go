@@ -7,6 +7,7 @@ import (
 	"ports/client/interfaces/http"
 )
 
+//TODO:Add tests, linters, documentation
 func main() {
 	configuration, err := config.Parse()
 	grpcClient := grpc.CreateFromConfiguration(configuration)

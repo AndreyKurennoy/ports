@@ -6,6 +6,7 @@ import (
 	"ports/server/interfaces/grpc"
 )
 
+//TODO:Add tests, linters
 func main() {
 	configuration, err := config.Parse()
 	if err != nil {

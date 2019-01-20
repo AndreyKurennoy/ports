@@ -40,6 +40,7 @@ func (p *PortServiceImpl) AddPorts(file *multipart.FileHeader) (*ports.Empty, er
 	return &ports.Empty{}, nil
 }
 
+//TODO: Better to change json file struct to use standard json stream package
 func (p *PortServiceImpl) readJsonFile(file multipart.File) {
 	slice := []*ports.Port{}
 	decoder := jstream.NewDecoder(file, 1).EmitKV() // extract JSON values at a depth level of 1
