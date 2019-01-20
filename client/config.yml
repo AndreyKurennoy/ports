@@ -1,0 +1,4 @@
+http_server:
+  address: ':8081'
+grpc_client:
+  address: 'server:8082'

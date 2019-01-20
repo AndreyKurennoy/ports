@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package interfaces;
+
+service PortDomain {
+    rpc GetPort(PortRequest) returns (Port) {}
+    rpc AddPorts(Ports) returns (Empty) {}
+}
+
+message Ports {
+    repeated Port port = 1;
+}
+
+message Port {
+    string id = 1;
+    string name = 2;
+    string country = 3;
+    string province = 10;
+    string city = 4;
+    repeated string alias = 5;
+    repeated string regions = 6;
+    string timezone = 7;
+    repeated string unlocs = 8;
+    string code = 9;
+    repeated double coordinates = 11;
+}
+
+message Empty {}
+
+message PortRequest {
+    string id = 1;
+}
