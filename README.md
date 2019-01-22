@@ -8,9 +8,9 @@ docker-compose up
 
 ## APIService endpoints:
 ### Searching data 
-`http://localhost:8083/api/v1/port?portId={KEY}`
+`GET: http://localhost:8083/api/v1/port?portId={KEY}`
 
 
 ### Sending json file to save data: 
-```http://localhost:8083/api/v1/ports``` \
+`POST: http://localhost:8083/api/v1/ports` \
 Add json file to `form-data` with key `file`
