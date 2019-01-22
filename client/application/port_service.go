@@ -34,36 +34,43 @@ func (p *PortServiceImpl) FindPort(id string) (*ports.Port, error) {
 }
 
 // AddPorts add ports
-func (p *PortServiceImpl) AddPorts(file *multipart.FileHeader) (*ports.Empty, error) {
+func (p *PortServiceImpl) AddPorts(file *multipart.FileHeader) (empty *ports.Empty, err error) {
 	src, err := file.Open()
 	if err != nil {
 		return nil, err
 	}
-	defer src.Close()
 
-	p.readJSONFile(src)
+	defer func() {
+		if cerr := src.Close(); cerr != nil && err != nil {
+			err = cerr
+		}
+	}()
+
+	readJSONFile(func(i *ports.Ports) {
+		_, _ = p.portRepository.Save(i)
+	}, src)
 
 	return &ports.Empty{}, nil
 }
 
 //TODO: Better to change json file struct to use standard json stream package
-func (p *PortServiceImpl) readJSONFile(file multipart.File) {
-	slice := []*ports.Port{}
+func readJSONFile(data func(*ports.Ports), file multipart.File) {
+	slice := &ports.Ports{}
 	decoder := jstream.NewDecoder(file, 1).EmitKV() // extract JSON values at a depth level of 1
 
 	for mv := range decoder.Stream() {
 		value := mv.Value.(jstream.KV)
 		result := serializePort(value)
 
-		slice = append(slice, result)
-		if len(slice) == numPorts {
-			//TODO:handle errors
-			p.portRepository.Save(&ports.Ports{Port: slice})
-			slice = []*ports.Port{}
+		slice.Port = append(slice.Port, result)
+		if len(slice.Port) == numPorts {
+			data(slice)
+			slice = &ports.Ports{}
 		}
 
 	}
-	p.portRepository.Save(&ports.Ports{Port: slice})
+
+	data(slice)
 }
 
 func serializePort(value jstream.KV) *ports.Port {

@@ -27,7 +27,6 @@ func (r *PortRepositoryImpl) Get(id string) (*ports.Port, error) {
 
 	port, err := r.Grpc.GetPort(ctx, &ports.PortRequest{Id: id})
 	if err != nil {
-		//TODO: rewrite error for client
 		return nil, err
 	}
 
@@ -41,7 +40,6 @@ func (r *PortRepositoryImpl) Save(ports *ports.Ports) (*ports.Empty, error) {
 
 	response, err := r.Grpc.AddPorts(ctx, ports)
 	if err != nil {
-		//TODO: rewrite error for client
 		return nil, err
 
 	}

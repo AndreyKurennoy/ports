@@ -26,7 +26,9 @@ func (c *PortController) AddPorts(ctx echo.Context) error {
 		return ctx.JSON(http.StatusInternalServerError, err)
 	}
 
-	return ctx.JSON(http.StatusOK, "ok")
+	return ctx.JSON(http.StatusOK, hi{
+		"status": "ok",
+	})
 }
 
 // FindPort is http handler

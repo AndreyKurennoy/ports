@@ -14,6 +14,8 @@ type Server struct {
 	config *config.HTTPServer
 }
 
+type hi map[string]interface{}
+
 // NewServer created new server based on config and dependencies
 func NewServer(config *config.HTTPServer, dep application.Dependencies) *Server {
 	s := new(Server)
