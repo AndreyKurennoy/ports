@@ -8,19 +8,23 @@ const (
 	configType = "yml"
 )
 
+// Configuration is structure where application properties are stored.
 type Configuration struct {
 	GrpcClient *GrpcClient `mapstructure:"grpc_client"`
-	HttpServer *HttpServer `mapstructure:"http_server"`
+	HTTPServer *HTTPServer `mapstructure:"http_server"`
 }
 
+// GrpcClient configuration.
 type GrpcClient struct {
 	Address string
 }
 
-type HttpServer struct {
+// HTTPServer configuration.
+type HTTPServer struct {
 	Address string
 }
 
+// Parse retrieves configuration from configuration file and maps it to Configuration.
 func Parse() (*Configuration, error) {
 	manager := viper.New()
 	manager.AutomaticEnv()

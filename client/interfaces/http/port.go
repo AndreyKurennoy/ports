@@ -1,15 +1,19 @@
 package http
 
 import (
-	"github.com/labstack/echo"
 	"net/http"
 	"ports/client/application"
+
+	"github.com/labstack/echo"
 )
 
+// PortController is controller
 type PortController struct {
 	portService application.PortService
 }
 
+// AddPorts is http handler
+// POST /api/v1/ports
 func (c *PortController) AddPorts(ctx echo.Context) error {
 
 	file, err := ctx.FormFile("file")
@@ -22,9 +26,11 @@ func (c *PortController) AddPorts(ctx echo.Context) error {
 		return ctx.JSON(http.StatusInternalServerError, err)
 	}
 
-	return ctx.JSON(http.StatusOK, nil)
+	return ctx.JSON(http.StatusOK, "ok")
 }
 
+// FindPort is http handler
+// GET /api/v1/port?portId={KEY}
 func (c *PortController) FindPort(ctx echo.Context) error {
 
 	port, err := c.portService.FindPort(ctx.QueryParam("portId"))

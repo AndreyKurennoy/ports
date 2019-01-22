@@ -1,10 +1,12 @@
 package grpc
 
 import (
-	"google.golang.org/grpc"
 	"ports/client/config"
+
+	"google.golang.org/grpc"
 )
 
+// CreateFromConfiguration creates gRPC client connection using Configuration
 func CreateFromConfiguration(config *config.Configuration) *grpc.ClientConn {
 	client, err := grpc.Dial(config.GrpcClient.Address, grpc.WithInsecure())
 	if err != nil {

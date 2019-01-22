@@ -1,18 +1,21 @@
 package http
 
 import (
+	"ports/client/application"
 	"ports/client/config"
+
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"ports/client/application"
 )
 
+// Server is http server
 type Server struct {
 	echo   *echo.Echo
-	config *config.HttpServer
+	config *config.HTTPServer
 }
 
-func NewServer(config *config.HttpServer, dep application.Dependencies) *Server {
+// NewServer created new server based on config and dependencies
+func NewServer(config *config.HTTPServer, dep application.Dependencies) *Server {
 	s := new(Server)
 	s.config = config
 
@@ -34,6 +37,7 @@ func (s *Server) initRoutes(dependencies application.Dependencies) {
 	v1.POST("/ports", portController.AddPorts)
 }
 
+// Start server
 func (s Server) Start() {
 	s.echo.Logger.Fatal(s.echo.Start(s.config.Address))
 }

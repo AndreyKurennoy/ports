@@ -1,9 +1,9 @@
 package main
 
 import (
+	"ports/client/application"
 	"ports/client/config"
 	"ports/client/interfaces/grpc"
-	"ports/client/application"
 	"ports/client/interfaces/http"
 )
 
@@ -17,6 +17,6 @@ func main() {
 		panic(err)
 	}
 
-	server := http.NewServer(configuration.HttpServer, dependencies)
+	server := http.NewServer(configuration.HTTPServer, dependencies)
 	server.Start()
 }
