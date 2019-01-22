@@ -1,8 +1,8 @@
 package main
 
 import (
-	"ports/server/config"
 	"ports/server/application"
+	"ports/server/config"
 	"ports/server/interfaces/grpc"
 )
 

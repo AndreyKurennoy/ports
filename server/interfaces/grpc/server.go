@@ -1,20 +1,23 @@
 package grpc
 
 import (
-	"ports/server/config"
+	"fmt"
 	"log"
 	"net"
-	"google.golang.org/grpc"
-	ports "ports/server/interfaces"
 	"ports/server/application"
-	"fmt"
+	"ports/server/config"
+	ports "ports/server/interfaces"
+
+	"google.golang.org/grpc"
 )
 
+// Server is gRPC server
 type Server struct {
 	config *config.GrpcServer
 	gs     *grpc.Server
 }
 
+// NewServer created new server based on config and dependencies
 func NewServer(config *config.GrpcServer, dependencies application.Dependencies) *Server {
 	s := new(Server)
 	s.config = config
@@ -29,6 +32,7 @@ func (s *Server) initRoutes(dependencies application.Dependencies) {
 	ports.RegisterPortDomainServer(s.gs, &portController)
 }
 
+// Start server
 func (s *Server) Start() {
 	lis, err := net.Listen("tcp", s.config.Address)
 	if err != nil {
