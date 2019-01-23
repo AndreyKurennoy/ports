@@ -3,7 +3,7 @@
 ## Running services: 
 ```
 docker-compose build
-docker-compose up
+docker-compose up -d
 ```
 
 ## APIService endpoints:
