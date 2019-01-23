@@ -14,7 +14,7 @@ WORKDIR /build/ports/client
 
 RUN export PATH=$PATH:$GOPATH/bin
 
-RUN RUN go mod download && go mod vendor \
+RUN go mod download && go mod vendor \
     && go get -u github.com/golang/protobuf/protoc-gen-go \
     && protoc --go_out=plugins=grpc:. interfaces/*.proto \
     && go build
